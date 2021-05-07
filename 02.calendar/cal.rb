@@ -42,7 +42,9 @@ end
   result.push(result_day)
 end
 
+month_year = month.to_s + '月' + year.to_s
+
 # 最終的な出力
-p month.to_s + '月 ' + year.to_s
-p day_of_the_week.join(' ')
+puts month_year.to_s.center(20)
+puts day_of_the_week.join(' ')
 print result.join('')
