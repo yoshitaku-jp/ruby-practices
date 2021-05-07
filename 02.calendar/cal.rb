@@ -35,12 +35,11 @@ end
 # 日にちの分だけ繰り返す
 # 土曜日のみ末尾に改行処理
 (first_day..last_day).each do |cursor_day|
-  if 0 == cursor_day.wday
-    line_day = cursor_day.day.to_s + "\n"
-    result.push(line_day)
-  else
-    result.push(cursor_day.day.to_s + ' ')
-  end
+  result_day = cursor_day.day.to_s.rjust(3, ' ')
+
+  result_day += "\n" if cursor_day.saturday?
+
+  result.push(result_day)
 end
 
 # 最終的な出力
