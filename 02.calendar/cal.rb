@@ -23,8 +23,8 @@ opt.parse(ARGV)
 first_day = Date.new(year, month)
 last_day  = Date.new(year, month, -1)
 
-# 月初日と月末日を取得する
-day_of_the_week = %W[\u65E5 \u6708 \u706B \u6C34 \u6728 \u91D1 \u571F]
+# 曜日を定義する
+day_of_the_week = %w[日 月 火 水 木 金 土]
 
 # 月初日の曜日の分だけスペースを挿入
 result = []
