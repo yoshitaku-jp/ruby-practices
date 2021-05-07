@@ -8,12 +8,12 @@ month = today.month
 
 # コマンドラインからの年度の引数取得
 opt = OptionParser.new
-opt.on('-y', '--year [ITEM]', 'select year') do |val|
+opt.on('-y', '--year ITEM', 'select year') do |val|
   year = val.to_i unless val.nil?
 end
 
 # コマンドラインからの月の引数取得
-opt.on('-m', '--month [ITEM]', 'select month') do |val|
+opt.on('-m', '--month ITEM', 'select month') do |val|
   month = val.to_i unless val.nil?
 end
 
