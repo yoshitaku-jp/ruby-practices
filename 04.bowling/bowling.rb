@@ -11,34 +11,38 @@ scores.each do |s|
   end
 end
 
+# フレームごとの分割
+
 frames = []
 max_frame = 10
 roll = 1
 tmp = []
-shots.each_with_index do |_value, _idx|
-  if frames.length + 1 < max_frame # 9投目まで
-    if roll == 1
-      tmp << _value
-    elsif roll == 2
-      tmp << _value
+shots.each do |value|
+  if frames.length + 1 < max_frame # 9フレームまで
+    if roll == 1 && value == 10 # ストライク
+      tmp << value
       frames << tmp
+      roll = 1
+      tmp = []
+
+    elsif roll == 1 # 1投目
+      tmp << value
+      roll += 1
+
+    elsif roll == 2 # 2投目
+      tmp << value
+      frames << tmp
+      roll = 1
       tmp = []
     end
 
-    if roll != 2
-      roll += 1
-    else
-      roll = 1
-    end
-  else  # 10投目
-    tmp << _value
+  else # 10フレーム
+    tmp << value
+    if tmp.sum < 10 && roll == 2 # 2投以内にストライクとスペアがない
+      frames << tmp
+    elsif roll == 3 # 3投目
+      frames << tmp
 
-    if tmp.sum < 10 && roll == 2 #2投以内にストライクとスペアがない
-      frames << tmp
-      break
-    elsif roll == 3　#3頭目
-      frames << tmp
-      break
     end
     roll += 1
   end
