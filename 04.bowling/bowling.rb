@@ -4,11 +4,10 @@ scores = score.split(',')
 shots = []
 
 scores.each do |s|
-  if s == 'X' # ストライク
-    shots << 10
-    shots << 0
+  shots << if s == 'X' # ストライク
+             10
   else
-    shots << s.to_i
+             s.to_i
   end
 end
 
