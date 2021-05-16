@@ -7,8 +7,6 @@ scores.each do |s|
   if s == 'X' # ストライク
     shots << 10
     shots << 0
-  elsif s == 'S' # スペア
-    shots << 10
   else
     shots << s.to_i
   end
