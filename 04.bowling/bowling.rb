@@ -47,4 +47,24 @@ shots.each do |value|
     roll += 1
   end
 end
-p frames
+
+# ポイント計算
+point = 0
+frames.each_with_index do |value, idx|
+  point += if idx == 9 # 10フレーム目のみ
+             value.sum
+           elsif frames[idx][0] == 10 # ストライク
+             if frames[idx + 1].length == 1 # 次もストライクなら
+               10 + frames[idx + 1][0] + frames[idx + 2][0]
+             else
+               10 + frames[idx + 1][0] + frames[idx + 1][1] # 次がストライク以外
+             end
+           elsif frames[idx].sum == 10 # スペア
+
+             frames[idx].sum + frames[idx + 1][0]
+           else # スペアストライク以外
+             value.sum
+           end
+end
+
+p point
