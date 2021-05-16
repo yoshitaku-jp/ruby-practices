@@ -13,19 +13,35 @@ scores.each do |s|
 end
 
 frames = []
-shots.each_slice(2) do |s|
-  frames << s
-end
+max_frame = 10
+roll = 1
+tmp = []
+shots.each_with_index do |_value, _idx|
+  if frames.length + 1 < max_frame # 9投目まで
+    if roll == 1
+      tmp << _value
+    elsif roll == 2
+      tmp << _value
+      frames << tmp
+      tmp = []
+    end
 
-point = 0
-frames.each do |frame|
-  point += if frame[0] == 10
-             30
-           elsif frame.sum == 10
-             frame[0] + 10
-           else
-             frame.sum
-           end
-end
+    if roll != 2
+      roll += 1
+    else
+      roll = 1
+    end
+  else  # 10投目
+    tmp << _value
 
-p point
+    if tmp.sum < 10 && roll == 2 #2投以内にストライクとスペアがない
+      frames << tmp
+      break
+    elsif roll == 3　#3頭目
+      frames << tmp
+      break
+    end
+    roll += 1
+  end
+end
+p frames
