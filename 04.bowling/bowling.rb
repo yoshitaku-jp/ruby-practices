@@ -6,9 +6,9 @@ shots = []
 scores.each do |s|
   shots << if s == 'X' # ストライク
              10
-  else
+           else
              s.to_i
-  end
+           end
 end
 
 # フレームごとの分割
