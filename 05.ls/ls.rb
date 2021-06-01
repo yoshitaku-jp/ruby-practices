@@ -21,5 +21,12 @@ end
 
 opt.parse(ARGV)
 
+result = ''
 Dir.foreach(Dir.pwd) do |_item|
+  unless option.include?('a')
+    next if (_item == '.') || (_item == '..') # カレントディレクトリと親ディレクトリを飛ばす
+    next if _item[0] == '.' # 隠しファイルを飛ばす
+  end
+
+  p _item
 end
