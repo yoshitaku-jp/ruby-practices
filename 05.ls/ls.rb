@@ -20,3 +20,6 @@ opt.on('-r') do |val|
 end
 
 opt.parse(ARGV)
+
+Dir.foreach(Dir.pwd) do |_item|
+end
