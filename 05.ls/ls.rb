@@ -21,12 +21,17 @@ end
 
 opt.parse(ARGV)
 
+def is_hidden_file(file)
+  if (file == '.') || (file == '..') || file[0] == '.'
+    true
+  else
+    false
+  end
+end
+
 result = ''
 Dir.foreach(Dir.pwd) do |_item|
-  unless option.include?('a')
-    next if (_item == '.') || (_item == '..') # カレントディレクトリと親ディレクトリを飛ばす
-    next if _item[0] == '.' # 隠しファイルを飛ばす
-  end
+  next if !option.include?('a') && (is_hidden_file(_item) == true)
 
   p _item
 end
