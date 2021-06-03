@@ -29,9 +29,22 @@ def is_hidden_file(file)
   end
 end
 
+def show_file_details(_file)
+  detailes = ''
+  detailes += if File::Stat.new(_file).directory? == true
+                'd'
+              else
+                '-'
+              end
+
+  detailes += switch_file_mode(File::Stat.new(_file).mode.to_s(8).slice(-3, 1))
+  detailes += switch_file_mode(File::Stat.new(_file).mode.to_s(8).slice(-2, 1))
+  detailes += switch_file_mode(File::Stat.new(_file).mode.to_s(8).slice(-1, 1))
+end
 result = ''
 Dir.foreach(Dir.pwd) do |_item|
   next if !option.include?('a') && (is_hidden_file(_item) == true)
 
+  _item = show_file_details(_item) + _item if option.include?('l')
   p _item
 end
