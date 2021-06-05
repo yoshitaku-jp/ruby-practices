@@ -71,9 +71,25 @@ max_vertical = if !option.include?('a')
 
 result = Array.new(max_vertical) { Array.new(3, 0) }
 
+i = 0
+j = 0
+
 Dir.foreach(Dir.pwd) do |_item|
   next if !option.include?('a') && (is_hidden_file(_item) == true)
 
-  _item = show_file_details(_item) + _item if option.include?('l')
-  p _item
+  if option.include?('l')
+    _item = show_file_details(_item) + _item
+  elsif i < max_vertical
+    result[i][j] = _item
+    i += 1
+  else
+    i = 0
+    j += 1
+  end
+end
+
+result.each do |data|
+  print data.join('  ')
+
+  puts ''
 end
