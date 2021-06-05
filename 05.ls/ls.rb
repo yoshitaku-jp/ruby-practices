@@ -60,7 +60,17 @@ def show_file_details(_file)
   detailes += switch_file_mode(File::Stat.new(_file).mode.to_s(8).slice(-1, 1))
 end
 
-result = ''
+
+
+max_vertical = 0
+max_vertical = if !option.include?('a')
+                 Dir.glob(Dir.pwd + '/*').count / 3
+               else
+                 Dir.glob(Dir.pwd + '/*', File::FNM_DOTMATCH).count / 3
+               end
+
+result = Array.new(max_vertical) { Array.new(3, 0) }
+
 Dir.foreach(Dir.pwd) do |_item|
   next if !option.include?('a') && (is_hidden_file(_item) == true)
 
