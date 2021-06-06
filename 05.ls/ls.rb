@@ -45,9 +45,10 @@ def show_file_details(_file)
                 '-'
               end
 
-  detailes += switch_file_mode(File::Stat.new(_file).mode.to_s(8).slice(-3, 1))
-  detailes += switch_file_mode(File::Stat.new(_file).mode.to_s(8).slice(-2, 1))
-  detailes += switch_file_mode(File::Stat.new(_file).mode.to_s(8).slice(-1, 1))
+  [-3, -2, -1].each do |i|
+    detailes += switch_file_mode(File::Stat.new(_file).mode.to_s(8).slice(i, 1))
+  end
+  detailes
 end
 
 # 表示列を3に固定したときに、何行目まで出力するかを決める関数
