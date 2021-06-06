@@ -58,13 +58,17 @@ end
 
 # オプションによって出力データの格納方式の変更
 max_vertical = 0
-max_vertical = if !option.include?('a')
-                 Dir.glob(Dir.pwd + '/*').count / 3
-               else
-                 Dir.glob(Dir.pwd + '/*', File::FNM_DOTMATCH).count / 3
-               end
-
-result = Array.new(max_vertical) { Array.new(3, 0) }
+result = ''
+if !option.include?('l')
+  max_vertical = if !option.include?('a')
+                   Dir.glob(Dir.pwd + '/*').count / 3
+                 else
+                   Dir.glob(Dir.pwd + '/*', File::FNM_DOTMATCH).count / 3
+                 end
+  result = Array.new(max_vertical) { Array.new(3, 0) }
+else
+  result = []
+end
 
 # データ格納
 i = 0
