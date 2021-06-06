@@ -21,7 +21,8 @@ end
 
 opt.parse(ARGV)
 
-def is_hidden_file(file)
+# 隠しファイルをスキップするかの関数
+def hidden_file?(file)
   if (file == '.') || (file == '..') || file[0] == '.'
     true
   else
@@ -29,24 +30,11 @@ def is_hidden_file(file)
   end
 end
 
-def switch_file_mode(num)
-  if num == '7'
-    'rwx'
-  elsif num == '6'
-    'rw-'
-  elsif num == '5'
-    'r-w'
-  elsif num == '4'
-    'r--'
-  elsif num == '3'
-    '-wx'
-  elsif num == '2'
-    '-w-'
-  elsif num == '1'
-    '--x'
-  end
+# ファイルのパーミッションを取得する関数
+def switch_file_mode(_num)
 end
 
+# ファイルの詳細情報を取得する関数
 def show_file_details(_file)
   detailes = ''
   detailes += if File::Stat.new(_file).directory? == true
@@ -60,8 +48,7 @@ def show_file_details(_file)
   detailes += switch_file_mode(File::Stat.new(_file).mode.to_s(8).slice(-1, 1))
 end
 
-
-
+# 表示列を3に固定したときに、何行目まで出力するかを決める関数
 max_vertical = 0
 max_vertical = if !option.include?('a')
                  Dir.glob(Dir.pwd + '/*').count / 3
