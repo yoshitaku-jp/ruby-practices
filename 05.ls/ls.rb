@@ -32,6 +32,8 @@ end
 
 # ファイルのパーミッションを取得する関数
 def switch_file_mode(_num)
+  permission = { '7': 'rwx', '6': 'rw-', '5': 'r-w', '4': 'r--', '3': '-wx', '2': '-w-', '1': '--x' }
+  permission[_num].to_s
 end
 
 # ファイルの詳細情報を取得する関数
