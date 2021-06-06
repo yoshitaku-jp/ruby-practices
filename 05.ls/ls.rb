@@ -23,17 +23,13 @@ opt.parse(ARGV)
 
 # 隠しファイルをスキップするかの関数
 def hidden_file?(file)
-  if (file == '.') || (file == '..') || file[0] == '.'
-    true
-  else
-    false
-  end
+  true if (file == '.') || (file == '..') || file[0] == '.'
 end
 
 # ファイルのパーミッションを取得する関数
 def switch_file_mode(_num)
-  permission = { '7': 'rwx', '6': 'rw-', '5': 'r-w', '4': 'r--', '3': '-wx', '2': '-w-', '1': '--x' }
-  permission[_num].to_s
+  permission = { '7' => 'rwx', '6' => 'rw-', '5' => 'r-w', '4' => 'r--', '3' => '-wx', '2' => '-w-', '1' => '--x' }
+  permission[_num]
 end
 
 # ファイルの詳細情報を取得する関数
