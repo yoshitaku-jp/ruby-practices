@@ -47,7 +47,7 @@ def show_file_details(_file)
   detailes
 end
 
-# 表示列を3に固定したときに、何行目まで出力するかを決める関数
+# オプションによって出力データの格納方式の変更
 max_vertical = 0
 max_vertical = if !option.include?('a')
                  Dir.glob(Dir.pwd + '/*').count / 3
@@ -57,6 +57,7 @@ max_vertical = if !option.include?('a')
 
 result = Array.new(max_vertical) { Array.new(3, 0) }
 
+# データ格納
 i = 0
 j = 0
 
