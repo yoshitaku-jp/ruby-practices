@@ -65,7 +65,7 @@ i = 0
 j = 0
 
 Dir.foreach(Dir.pwd) do |_item|
-  next if !option.include?('a') && (is_hidden_file(_item) == true)
+  next if !option.include?('a') && (hidden_file?(_item) == true)
 
   if option.include?('l')
     _item = show_file_details(_item) + _item
