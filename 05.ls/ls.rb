@@ -78,7 +78,7 @@ Dir.foreach(Dir.pwd) do |_item|
   next if !option.include?('a') && (hidden_file?(_item) == true)
 
   if option.include?('l')
-    _item = show_file_details(_item) + _item
+    result << show_file_details(_item) + _item
   elsif i < max_vertical
     result[i][j] = _item
     i += 1
