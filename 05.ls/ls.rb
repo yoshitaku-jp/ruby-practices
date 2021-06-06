@@ -73,7 +73,6 @@ end
 # データ格納
 i = 0
 j = 0
-
 Dir.foreach(Dir.pwd) do |_item|
   next if !option.include?('a') && (hidden_file?(_item) == true)
 
@@ -88,8 +87,11 @@ Dir.foreach(Dir.pwd) do |_item|
   end
 end
 
-result.each do |data|
-  print data.join('  ')
-
-  puts ''
+if option.include?('l')
+  puts result
+else
+  result.each do |data|
+    print data.join('  ')
+    puts ''
+  end
 end
