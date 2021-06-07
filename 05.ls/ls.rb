@@ -24,7 +24,7 @@ opt.parse(ARGV)
 
 # 隠しファイルをスキップするかの関数
 def hidden_file?(file)
-  true if (file == '.') || (file == '..') || file[0] == '.'
+  (file == '.') || (file == '..') || file[0] == '.'
 end
 
 # ファイルのパーミッションを取得する関数
