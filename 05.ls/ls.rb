@@ -1,6 +1,7 @@
 require 'optparse'
 require 'etc'
 
+### input 入力
 opt = OptionParser.new
 
 option = []
@@ -22,6 +23,7 @@ end
 
 opt.parse(ARGV)
 
+### process 加工
 # 隠しファイルをスキップするかの関数
 def hidden_file?(file)
   (file == '.') || (file == '..') || file[0] == '.'
@@ -58,11 +60,10 @@ def show_file_details(_file)
   detailes
 end
 
-# オプションによって出力データの格納方式の変更
-max_vertical = 0
-result = ''
-if !option.include?('l')
-  max_vertical = if !option.include?('a')
+# データの加工処理
+### output 表示
+
+# 行数を決める
                    Dir.glob(Dir.pwd + '/*').count / 3
                  else
                    Dir.glob(Dir.pwd + '/*', File::FNM_DOTMATCH).count / 3
@@ -72,9 +73,7 @@ else
   result = []
 end
 
-# データ格納
-i = 0
-j = 0
+# lオプション以外
 Dir.foreach(Dir.pwd) do |_item|
   next if !option.include?('a') && (hidden_file?(_item) == true)
 
@@ -86,11 +85,11 @@ Dir.foreach(Dir.pwd) do |_item|
   else
     i = 0
     j += 1
+# lオプション
   end
 end
 
-if option.include?('l')
-  puts result
+# lオプションで表示方法を変える
 else
   result.each do |data|
     print data.join('  ')
