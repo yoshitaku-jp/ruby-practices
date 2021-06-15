@@ -2,6 +2,7 @@ require 'optparse'
 require 'etc'
 
 ### input 入力
+
 opt = OptionParser.new
 
 $option = []
@@ -24,6 +25,7 @@ end
 opt.parse(ARGV)
 
 ### process 加工
+
 # 隠しファイルをスキップするかの関数
 def hidden_file?(file)
   (file == '.') || (file == '..') || file[0] == '.'
@@ -94,9 +96,6 @@ def set_row_num
                  else
                    Dir.glob(Dir.pwd + '/*', File::FNM_DOTMATCH).count / 3
                  end
-  result = Array.new(max_vertical) { Array.new(3, 0) }
-else
-  result = []
 end
 
 # lオプション以外
