@@ -63,15 +63,9 @@ def show_file_details(_file)
 end
 
 # データの加工処理
-result = []
+inputs = []
 Dir.foreach(Dir.pwd) do |_item|
-  next if !$option.include?('a') && (hidden_file?(_item) == true)
-
-  result << if $option.include?('l')
-              show_file_details(_item) + _item
-            else
-              _item
-            end
+  inputs << _item
 end
 
 # 整列
@@ -84,8 +78,19 @@ def reverse_files?(_list)
   _list.reverse
 end
 
-result = sort_files(result)
-result = reverse_files?(result) if $option.include?('r')
+inputs = sort_files(inputs)
+inputs = reverse_files?(inputs) if $option.include?('r')
+
+result = []
+inputs.each do |_item|
+  next if !$option.include?('a') && (hidden_file?(_item) == true)
+
+  result << if $option.include?('l')
+              show_file_details(_item) + _item
+            else
+              _item
+            end
+end
 
 ### output 表示
 
