@@ -35,23 +35,25 @@ end
 
 # ファイルの詳細情報を取得する関数
 def show_file_details(_file)
+  file = File::Stat.new(_file)
+
   detailes = ''
-  detailes += if File::Stat.new(_file).directory? == true
+  detailes += if file.directory? == true
                 'd'
               else
                 '-'
               end
 
   [-3, -2, -1].each do |i|
-    detailes += switch_file_mode(File::Stat.new(_file).mode.to_s(8).slice(i, 1))
+    detailes += switch_file_mode(file.mode.to_s(8).slice(i, 1))
   end
 
-  detailes += ' ' + File::Stat.new(_file).nlink.to_s + ' '
+  detailes += ' ' + file.nlink.to_s + ' '
 
-  detailes += Etc.getpwuid(File::Stat.new(_file).uid).name + ' '
-  detailes += Etc.getgrgid(File::Stat.new(_file).gid).name + ' '
-  detailes += File::Stat.new(_file).size.to_s + ' '
-  detailes += File::Stat.new(_file).mtime.to_s + ' '
+  detailes += Etc.getpwuid(file.uid).name + ' '
+  detailes += Etc.getgrgid(file.gid).name + ' '
+  detailes += file.size.to_s + ' '
+  detailes += file.mtime.to_s + ' '
 
   detailes
 end
