@@ -64,6 +64,8 @@ end
 ### output 表示
 
 # 行数を決める
+def set_row_num
+  max_vertical = if !$option.include?('a')
                    Dir.glob(Dir.pwd + '/*').count / 3
                  else
                    Dir.glob(Dir.pwd + '/*', File::FNM_DOTMATCH).count / 3
@@ -74,25 +76,34 @@ else
 end
 
 # lオプション以外
-Dir.foreach(Dir.pwd) do |_item|
-  next if !option.include?('a') && (hidden_file?(_item) == true)
+def display_vertical(_list)
+  max_row = set_row_num
+  _list = _list.each_slice(max_row).to_a
 
-  if option.include?('l')
-    result << show_file_details(_item) + _item
-  elsif i < max_vertical
-    result[i][j] = _item
-    i += 1
-  else
-    i = 0
-    j += 1
+  i = 0
+  j = 0
+  while j < max_row
+    if i < 3
+      print _list[i][j] + ' '
+      i += 1
+    else
+      puts ''
+      j += 1
+      i = 0
+    end
+  end
+end
+
 # lオプション
+def display(list)
+  list.each do |data|
+    puts data
   end
 end
 
 # lオプションで表示方法を変える
+if $option.include?('l')
+  display(result)
 else
-  result.each do |data|
-    print data.join('  ')
-    puts ''
-  end
+  display_vertical(result)
 end
