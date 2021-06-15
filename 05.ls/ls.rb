@@ -61,6 +61,30 @@ def show_file_details(_file)
 end
 
 # データの加工処理
+result = []
+Dir.foreach(Dir.pwd) do |_item|
+  next if !$option.include?('a') && (hidden_file?(_item) == true)
+
+  result << if $option.include?('l')
+              show_file_details(_item) + _item
+            else
+              _item
+            end
+end
+
+# 整列
+def sort_files(_list)
+  _list.sort
+end
+
+# 反転
+def reverse_files?(_list)
+  _list.reverse
+end
+
+result = sort_files(result)
+result = reverse_files?(result) if $option.include?('r')
+
 ### output 表示
 
 # 行数を決める
