@@ -41,12 +41,7 @@ end
 def show_file_details(file)
   file = File::Stat.new(file)
 
-  detailes = ''
-  detailes += if file.directory? == true
-                'd'
-              else
-                '-'
-              end
+  detailes = file.directory? ? 'd' : '-'
 
   [-3, -2, -1].each do |i|
     detailes += switch_file_mode(file.mode.to_s(8).slice(i, 1))
