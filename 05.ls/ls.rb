@@ -58,10 +58,7 @@ def show_file_details(file)
 end
 
 # データの加工処理
-inputs = []
-Dir.foreach(Dir.pwd) do |item|
-  inputs << item
-end
+inputs = Dir.children(Dir.pwd)
 
 # 整列
 def sort_files(list)
