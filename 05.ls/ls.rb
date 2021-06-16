@@ -87,17 +87,13 @@ end
 ### output 表示
 
 # 行数を決める
-def set_row_num
-  max_vertical = if !$option.include?('a')
-                   Dir.glob(Dir.pwd + '/*').count / 3
-                 else
-                   Dir.glob(Dir.pwd + '/*', File::FNM_DOTMATCH).count / 3
-                 end
+def set_row_num(list)
+  max_vertical = list.count / 3
 end
 
 # lオプション以外
 def display_vertical(list)
-  max_row = set_row_num
+  max_row = set_row_num(list)
   list = list.each_slice(max_row).to_a
 
   i = 0
