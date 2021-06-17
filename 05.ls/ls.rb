@@ -8,18 +8,18 @@ opt = OptionParser.new
 $option = []
 
 # コマンドラインからのaの引数取得
-opt.on('-a') do |val|
-  $option << 'a' unless val.nil?
+opt.on('-a') do |_val|
+  $option << 'a'
 end
 
 # コマンドラインからのlの引数取得
-opt.on('-l') do |val|
-  $option << 'l' unless val.nil?
+opt.on('-l') do |_val|
+  $option << 'l'
 end
 
 # コマンドラインからのrの引数取得
-opt.on('-r') do |val|
-  $option << 'r' unless val.nil?
+opt.on('-r') do |_val|
+  $option << 'r'
 end
 
 opt.parse(ARGV)
@@ -32,21 +32,16 @@ def hidden_file?(file)
 end
 
 # ファイルのパーミッションを取得する関数
-def switch_file_mode(_num)
+def switch_file_mode(num)
   permission = { '7' => 'rwx', '6' => 'rw-', '5' => 'r-w', '4' => 'r--', '3' => '-wx', '2' => '-w-', '1' => '--x' }
-  permission[_num]
+  permission[num]
 end
 
 # ファイルの詳細情報を取得する関数
-def show_file_details(_file)
-  file = File::Stat.new(_file)
+def show_file_details(file)
+  file = File::Stat.new(file)
 
-  detailes = ''
-  detailes += if file.directory? == true
-                'd'
-              else
-                '-'
-              end
+  detailes = file.directory? ? 'd' : '-'
 
   [-3, -2, -1].each do |i|
     detailes += switch_file_mode(file.mode.to_s(8).slice(i, 1))
@@ -63,56 +58,51 @@ def show_file_details(_file)
 end
 
 # データの加工処理
-inputs = []
-Dir.foreach(Dir.pwd) do |_item|
-  inputs << _item
-end
+inputs = Dir.children(Dir.pwd)
 
 # 整列
-def sort_files(_list)
-  _list.sort
+def sort_files(list)
+  list.sort
 end
 
 # 反転
-def reverse_files?(_list)
-  _list.reverse
+def reverse_files?(list)
+  list.reverse
 end
 
 inputs = sort_files(inputs)
 inputs = reverse_files?(inputs) if $option.include?('r')
 
 result = []
-inputs.each do |_item|
-  next if !$option.include?('a') && (hidden_file?(_item) == true)
+inputs.each do |item|
+  next if !$option.include?('a') && (hidden_file?(item) == true)
 
   result << if $option.include?('l')
-              show_file_details(_item) + _item
+              show_file_details(item) + item
             else
-              _item
+              item
             end
 end
 
 ### output 表示
 
 # 行数を決める
-def set_row_num
-  max_vertical = if !$option.include?('a')
-                   Dir.glob(Dir.pwd + '/*').count / 3
-                 else
-                   Dir.glob(Dir.pwd + '/*', File::FNM_DOTMATCH).count / 3
-                 end
+def set_row_num(list)
+  max_vertical = list.count / 3
 end
 
 # lオプション以外
-def display_vertical(_list)
-  max_row = set_row_num
-  _list = _list.each_slice(max_row).to_a
+def display_vertical(list)
+  max_row = set_row_num(list)
+  list = list.each_slice(max_row).to_a
+
+  max_length = list.flatten.max_by(&:length)
 
   i = 0
   j = 0
   while j < max_row
     if i < 3
-      print _list[i][j] + ' '
+      print list[i][j].ljust(max_length.length) + ' '
       i += 1
     else
       puts ''
