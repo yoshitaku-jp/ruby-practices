@@ -96,11 +96,13 @@ def display_vertical(list)
   max_row = set_row_num(list)
   list = list.each_slice(max_row).to_a
 
+  max_length = list.flatten.max_by(&:length)
+
   i = 0
   j = 0
   while j < max_row
     if i < 3
-      print list[i][j] + ' '
+      print list[i][j].ljust(max_length.length) + ' '
       i += 1
     else
       puts ''
