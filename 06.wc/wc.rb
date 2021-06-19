@@ -27,8 +27,10 @@ def main
   print str
 
   print(lines_count(str).to_s + ' ')
-  print(word_size(str).to_s + ' ')
-  print(word_bytesize(str).to_s + ' ')
+  if params['l'] == false
+    print(word_size(str).to_s + ' ')
+    print(word_bytesize(str).to_s + ' ')
+  end
 end
 
 main
