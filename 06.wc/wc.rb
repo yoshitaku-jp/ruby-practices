@@ -23,9 +23,6 @@ def main
           input.join
         end
 
-  print ARGV
-  print str
-
   print(lines_count(str).to_s + ' ')
   if params['l'] == false
     print(word_size(str).to_s + ' ')
