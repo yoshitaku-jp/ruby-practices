@@ -15,13 +15,13 @@ end
 
 def main
   params = ARGV.getopts('l')
+  input = readlines
 
-  if ARGV.empty? == true
-    str = gets
-  else
-    input = readlines
-    str = input.join
-  end
+  str = if ARGV.empty? == true && input.nil?
+          gets
+        else
+          input.join
+        end
 
   print ARGV
   print str
