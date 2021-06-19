@@ -1,3 +1,5 @@
+require 'optparse'
+
 def lines_count(str)
   str.lines.count
 end
@@ -12,8 +14,17 @@ def word_bytesize(str)
 end
 
 def main
-  input = readlines
-  str = input.join
+  params = ARGV.getopts('l')
+
+  if ARGV.empty? == true
+    str = gets
+  else
+    input = readlines
+    str = input.join
+  end
+
+  print ARGV
+  print str
 
   print(lines_count(str).to_s + ' ')
   print(word_size(str).to_s + ' ')
