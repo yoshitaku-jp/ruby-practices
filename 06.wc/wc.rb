@@ -15,13 +15,14 @@ end
 
 def main
   params = ARGV.getopts('l')
-  input = readlines
+  input = []
 
-  str = if ARGV.empty? == true && input.nil?
-          gets
-        else
-          input.join
-        end
+  if File.pipe?(STDIN) || !ARGV.empty?
+    input = readlines
+    str = input.join
+  else
+    str = gets
+  end
 
   print(lines_count(str).to_s + ' ')
   if params['l'] == false
