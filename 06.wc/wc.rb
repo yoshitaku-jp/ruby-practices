@@ -13,6 +13,13 @@ def word_bytesize(str)
   str.bytesize
 end
 
+def print_wc(str, params)
+  print("#{lines_count(str)} ")
+  return if params['l'] == true
+
+  print("#{word_size(str)} ")
+  print("#{word_bytesize(str)} ")
+end
 def main
   params = ARGV.getopts('l')
   input = []
@@ -20,14 +27,10 @@ def main
   if File.pipe?(STDIN) || !ARGV.empty?
     input = readlines
     str = input.join
+    print_wc(str, params)
   else
     str = gets
-  end
-
-  print(lines_count(str).to_s + ' ')
-  if params['l'] == false
-    print(word_size(str).to_s + ' ')
-    print(word_bytesize(str).to_s + ' ')
+    print_wc(str, params)
   end
 end
 
