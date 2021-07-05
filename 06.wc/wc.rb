@@ -24,10 +24,11 @@ def main
   params = ARGV.getopts('l')
   input = []
 
-  if File.pipe?(STDIN) || !ARGV.empty?
+  if File.pipe?($stdin)
     input = readlines
     str = input.join
     print_wc(str, params)
+  elsif !ARGV.empty?
   else
     str = gets
     print_wc(str, params)
