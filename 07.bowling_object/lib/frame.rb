@@ -11,4 +11,8 @@ class Frame
     [first_shot.score, second_shot.score, third_shot.score].sum
   end
 
+  def strike?
+    true if @second_shot.mark.nil?
+  end
+
 end
