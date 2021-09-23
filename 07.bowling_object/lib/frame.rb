@@ -15,4 +15,7 @@ class Frame
     true if @second_shot.mark.nil?
   end
 
+  def spare?
+    true if sum_score == 10 && !second_shot.mark.nil?
+  end
 end
