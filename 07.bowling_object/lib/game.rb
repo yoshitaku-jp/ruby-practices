@@ -36,23 +36,20 @@ class Game
   end
 
   def calc_score(frames)
-    point = 0
-
-    frames.each_with_index do |_frame, idx|
-      point += if idx == 9
-                 frames[idx].sum_score
-               elsif frames[idx].strike? # ストライク
-                 if frames[idx + 1].strike? # 次もストライクか確認
-                   10 + frames[idx + 1].sum_score + frames[idx + 2].first_shot.score
-                 else
-                   10 + frames[idx + 1].first_shot.score + frames[idx + 1].second_shot.score
-                 end
-               elsif frames[idx].spare? # スペア
-                 frames[idx].sum_score + frames[idx + 1].first_shot.score
-               else
-                 frames[idx].sum_score
-               end
+    frames.each_with_index.sum do |frame, idx|
+      if idx == 9
+        frame.sum_score
+      elsif frame.strike? # ストライク
+        if frames[idx + 1].strike? # 次もストライクか確認
+          10 + frames[idx + 1].sum_score + frames[idx + 2].first_shot.score
+        else
+          10 + frames[idx + 1].first_shot.score + frames[idx + 1].second_shot.score
+        end
+      elsif frame.spare? # スペア
+        frame.sum_score + frames[idx + 1].first_shot.score
+      else
+        frame.sum_score
+      end
     end
-    point
   end
 end
