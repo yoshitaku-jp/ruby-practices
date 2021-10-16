@@ -17,43 +17,21 @@ class Game
 
   def split_frame(scores)
     frames = []
-    first_mark = nil
-    second_mark = nil
-    third_mark = nil
-    roll = 1
+    shots = []
 
     scores.each do |mark|
+      shots << mark
       if frames.length + 1 < 10
-        if roll == 1 && mark == 'X'
-          first_mark = mark
-          frames << Frame.new(first_mark)
-          first_mark = nil
-          roll = 1
-        elsif roll == 1
-          first_mark = mark
-          roll += 1
-        elsif roll == 2
-          second_mark = mark
-          frames << Frame.new(first_mark, second_mark)
-          first_mark = nil
-          second_mark = nil
-          roll = 1
+        if mark == 'X'
+          frames << Frame.new(*shots)
+          shots = []
+        elsif shots.length == 2
+          frames << Frame.new(*shots)
+          shots = []
         end
-      else
-        case roll
-        when 1
-          first_mark = mark
-        when 2
-          second_mark = mark
-
-          frames << Frame.new(first_mark, second_mark) if first_mark.to_i + second_mark.to_i < 10 && first_mark != 'X'
-        when 3
-          third_mark = mark
-          frames << Frame.new(first_mark, second_mark, third_mark)
-        end
-        roll += 1
       end
     end
+    frames << Frame.new(*shots)
     frames
   end
 
