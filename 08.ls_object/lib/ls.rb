@@ -1,4 +1,5 @@
 require_relative '../lib/file_info'
+require_relative '../lib/display'
 
 
 class LS
@@ -20,7 +21,12 @@ class LS
             end
         end
 
-        p file_names
-
+        # 画面出力判定
+        display = Display.new()
+        if option.include?('l')
+            display.horizontal(file_names)
+        else
+            display.vertical(file_names)
+        end
     end
 end
