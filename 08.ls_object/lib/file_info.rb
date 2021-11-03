@@ -2,7 +2,7 @@ class FileInfo
   attr_reader :file
 
   def initialize(file_name)
-    @file = File::Stat.new(file_name)
+      @file = File::Stat.new(file_name)
   end
   
   # ファイルのパーミッションを取得する関数
@@ -16,7 +16,7 @@ class FileInfo
     (file == '.') || (file == '..') || file[0] == '.'
   end
 
-  def show_file_details(file)
+  def show_file_details()
     detailes = file.directory? ? 'd' : '-'
 
     [-3, -2, -1].each do |i|
