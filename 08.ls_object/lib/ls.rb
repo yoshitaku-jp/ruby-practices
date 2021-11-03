@@ -1,4 +1,4 @@
-require_relative '../lib/dir_info'
+require_relative '../lib/file_info'
 
 
 class LS
@@ -14,8 +14,8 @@ class LS
 
         # 詳細情報出力の判定
         if option.include?('l')
-            file_names.map! do |file_name| 
-                file_info = FileInfo.new(file_name) 
+            file_names.map! do |file_name|
+                file_info = FileInfo.new(file_name)
                 file_info.show_file_details + file_name
             end
         end
