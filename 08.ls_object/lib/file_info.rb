@@ -11,11 +11,6 @@ class FileInfo
     permission[num]
   end
 
-  # 隠しファイルをスキップするかの関数
-  def hidden_file?(file)
-    (file == '.') || (file == '..') || file[0] == '.'
-  end
-
   def show_file_details()
     detailes = file.directory? ? 'd' : '-'
 

@@ -4,7 +4,14 @@ require_relative '../lib/display'
 
 class LS
     def initialize(option)
-        file_names = Dir.children(Dir.pwd)
+
+        # 隠しファイル判定
+        if  ! option.include?('a')
+            file_names = Dir.children(Dir.pwd)
+            file_names.reject! { |file_name| file_name[0] == "."} 
+        else
+            file_names = Dir.entries(Dir.pwd)
+        end
 
         # 昇順と降順を判定
         if ! option.include?('r')
