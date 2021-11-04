@@ -11,10 +11,9 @@ class LS
       file_names = Dir.entries(Dir.pwd)
     end
 
-    # 昇順と降順を判定
-    if !option.include?('r')
-      file_names.sort!
-    else
+    # 昇順と降順の操作
+    file_names.sort!
+    if option.include?('r')
       file_names.reverse!
     end
 
