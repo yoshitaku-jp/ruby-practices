@@ -17,7 +17,7 @@ class FileInfo
     detailes += "#{Etc.getpwuid(file.uid).name} "
     detailes += "#{Etc.getgrgid(file.gid).name} "
     detailes += "#{file.size} "
-    detailes += "#{file.mtime} "
+    detailes += "#{format_time(file.mtime)} "
 
     detailes
   end
@@ -32,5 +32,9 @@ class FileInfo
   def switch_file_mode(num)
     permission = { '7' => 'rwx', '6' => 'rw-', '5' => 'r-w', '4' => 'r--', '3' => '-wx', '2' => '-w-', '1' => '--x' }
     permission[num]
+  end
+
+  def format_time(time)
+    time.strftime("%m %d %H:%M")
   end
 end
