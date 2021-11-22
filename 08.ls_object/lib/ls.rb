@@ -25,9 +25,9 @@ class LS
         file_info = FileInfo.new(file_name)
         file_info.show_file_details + file_name
       end
-      display.horizontal(file_names)
+      display.output_console_horizontal(file_names)
     else
-      display.vertical(file_names)
+      display.output_console_vertical(file_names)
     end
   end
 end

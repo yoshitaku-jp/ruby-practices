@@ -1,14 +1,14 @@
 class Display
-  
+
   # lオプション
-  def horizontal(file_names)
+  def output_console_horizontal(file_names)
     file_names.each do |file_name|
       puts file_name
     end
   end
 
   # lオプション以外
-  def vertical(file_names)
+  def output_console_vertical(file_names)
     max_row = set_row_num(file_names)
     file_names = file_names.each_slice(max_row).to_a
 
