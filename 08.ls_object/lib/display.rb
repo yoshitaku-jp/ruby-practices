@@ -1,11 +1,6 @@
 class Display
   def initialize; end
 
-  # 行数を決める
-  def set_row_num(file_names)
-    max_row = file_names.count / 3
-  end
-
   # lオプション
   def horizontal(file_names)
     file_names.each do |file_name|
@@ -33,4 +28,11 @@ class Display
       end
     end
   end
+
+  private
+  # 行数を決める
+  def set_row_num(file_names)
+    max_row = file_names.count / 3
+  end
+
 end
