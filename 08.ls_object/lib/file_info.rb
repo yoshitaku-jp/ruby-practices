@@ -6,7 +6,7 @@ class FileInfo
   end
 
   def show_file_details
-    detailes = is_directory?
+    detailes = file.directory? ? 'd' : '-'
 
     [-3, -2, -1].each do |i|
       detailes += switch_file_mode(file.mode.to_s(8).slice(i, 1))
@@ -23,10 +23,6 @@ class FileInfo
   end
 
   private
-
-  def is_directory?
-    file.directory? ? 'd' : '-'
-  end
 
   # ファイルのパーミッションを取得する関数
   def switch_file_mode(num)
