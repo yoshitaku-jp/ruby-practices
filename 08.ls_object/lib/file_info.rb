@@ -5,7 +5,7 @@ class FileInfo
     @file = File::Stat.new(file_name)
   end
 
-  def show_file_details
+  def file_details
     detailes = file.directory? ? 'd' : '-'
 
     [-3, -2, -1].each do |i|

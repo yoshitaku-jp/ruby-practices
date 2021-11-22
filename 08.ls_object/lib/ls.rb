@@ -23,7 +23,7 @@ class LS
     if option.include?('l')
       file_names.map! do |file_name|
         file_info = FileInfo.new(file_name)
-        file_info.show_file_details + file_name
+        file_info.file_details + file_name
       end
       display.output_console_horizontal(file_names)
     else
