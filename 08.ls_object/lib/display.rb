@@ -1,6 +1,5 @@
 class Display
-  def initialize; end
-
+  
   # lオプション
   def horizontal(file_names)
     file_names.each do |file_name|
