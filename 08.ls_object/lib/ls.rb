@@ -21,11 +21,12 @@ class LS
     # 画面出力判定
     display = Display.new
     if option.include?('l')
+      file_infos = []
       file_names.map! do |file_name|
         file_info = FileInfo.new(file_name)
-        file_info.file_details + file_name
+        file_infos << file_info.file_details + file_name
       end
-      display.output_console_horizontal(file_names)
+      display.output_console_horizontal(file_infos)
     else
       display.output_console_vertical(file_names)
     end
